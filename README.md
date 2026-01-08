@@ -29,7 +29,7 @@ Este projeto suporta tanto certificados **A1** (arquivo) quanto **A3** (token/sm
 - ✅ Solução de problemas comuns
 - ✅ Melhores práticas de segurança
 
-**[👉 Leia o guia completo aqui](./CERTIFICADOS_A3.md)**
+**[👉 Acesse o guia completo de certificados A3](./CERTIFICADOS_A3.md)**
 
 ## Como Usar
 

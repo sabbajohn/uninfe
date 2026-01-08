@@ -285,8 +285,10 @@ class AssinadorA3 {
             ['type' => 'private']
         );
         
-        // Configurar para usar token A3
-        $objKey->loadKey("pkcs11:", false, false);
+        // Configurar para usar token A3 via PKCS#11
+        // URI completo: pkcs11:token=NomeToken;object=Certificado;pin-value=1234
+        // Ou usar método específico da biblioteca para carregar do token
+        $objKey->loadKey("pkcs11:token=MeuToken;object=MeuCertificado", false, false);
         
         // Assinar
         $objDSig->sign($objKey);
@@ -650,7 +652,15 @@ $slots = shell_exec('pkcs11-tool --list-slots 2>&1');
 echo $slots . "\n";
 
 // 4. Testar abertura de sessão (requer PIN)
-$pin = readline("Digite o PIN do token (ou Enter para pular): ");
+// IMPORTANTE: Em produção, use variável de ambiente ou config protegido
+// Este exemplo é apenas para teste
+if (PHP_SAPI === 'cli') {
+    echo "Digite o PIN do token (ou Enter para pular): ";
+    $pin = trim(fgets(STDIN));
+} else {
+    $pin = ''; // Em ambiente web, buscar de configuração segura
+}
+
 if (!empty($pin)) {
     echo "\n4. Testando autenticação...\n";
     $auth = shell_exec("pkcs11-tool --login --test --pin $pin 2>&1");
@@ -741,6 +751,11 @@ TokenSession::closeSession();
 function validarCertificado($certificate) {
     $certData = openssl_x509_parse($certificate);
     
+    // Verificar se o parse foi bem-sucedido
+    if ($certData === false) {
+        throw new Exception('Certificado inválido ou corrompido');
+    }
+    
     // Verificar validade temporal
     $now = time();
     if ($now < $certData['validFrom_time_t']) {
@@ -751,7 +766,7 @@ function validarCertificado($certificate) {
     }
     
     // Verificar tipo (e-CNPJ ou e-CPF)
-    $subject = $certData['subject'];
+    $subject = $certData['subject'] ?? [];
     if (!isset($subject['CN'])) {
         throw new Exception('Certificado inválido: CN não encontrado');
     }
