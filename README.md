@@ -17,7 +17,7 @@ Este repositório contém **WSDLs (Web Services Description Language)** e **sche
 
 Uma das principais dúvidas sobre NFSe é como trabalhar com diferentes tipos de certificados digitais.
 
-### 📖 [Guia Completo: Assinatura com Certificados A3](./CERTIFICADOS_A3.md)
+### 📖 [Guia Completo: Assinatura com Certificados A3](./CERTIFICADOS_A3.md) (Português)
 
 Este projeto suporta tanto certificados **A1** (arquivo) quanto **A3** (token/smartcard). Veja o guia completo para entender:
 
@@ -30,6 +30,10 @@ Este projeto suporta tanto certificados **A1** (arquivo) quanto **A3** (token/sm
 - ✅ Melhores práticas de segurança
 
 **[👉 Acesse o guia completo de certificados A3](./CERTIFICADOS_A3.md)**
+
+### 📖 [A3 Certificate Guide](./A3_CERTIFICATES_EN.md) (English)
+
+For international developers: **[English documentation available here](./A3_CERTIFICATES_EN.md)**
 
 ## Como Usar
 
